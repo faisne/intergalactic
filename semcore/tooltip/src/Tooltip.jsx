@@ -100,7 +100,7 @@ function TooltipPopper(props) {
       aria-live={theme === 'warning' ? 'assertive' : 'polite'}
     >
       <Children />
-      <SArrow data-popper-arrow use:theme={resolveColor(theme)} />
+      <SArrow data-popper-arrow use-theme={resolveColor(theme)} />
     </STooltip>,
   );
 }

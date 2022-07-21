@@ -90,7 +90,7 @@ function Dots(props) {
     );
     return acc;
   }, []);
-  return sstyled(styles)(<SDots use:duration={`${duration}ms`}>{dots}</SDots>);
+  return sstyled(styles)(<SDots use-duration={`${duration}ms`}>{dots}</SDots>);
 }
 
 Dots.style = style;

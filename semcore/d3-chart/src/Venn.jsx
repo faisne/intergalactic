@@ -110,7 +110,7 @@ function Circle({
       cx={data.x}
       cy={data.y}
       r={data.radius}
-      use:duration={`${duration}ms`}
+      use-duration={`${duration}ms`}
     />,
   );
 }

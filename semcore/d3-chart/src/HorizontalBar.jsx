@@ -82,7 +82,7 @@ class HorizontalBarRoot extends Component {
         width={width}
         height={height}
         d={dSvg}
-        use:duration={`${duration}ms`}
+        use-duration={`${duration}ms`}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
       />,

@@ -127,7 +127,7 @@ class BubbleRoot extends Component {
           cy={yScale(d[y]) + offset[1]}
           color={d[color]}
           r={z(d[value])}
-          use:duration={`${duration}ms`}
+          use-duration={`${duration}ms`}
         />
         {d[label] && (
           <SLabel

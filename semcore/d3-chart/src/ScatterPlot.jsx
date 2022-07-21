@@ -77,7 +77,7 @@ class ScatterPlotRoot extends Component {
           cy={yScale(d[y]) + offset[1]}
           color={color}
           r={r}
-          use:duration={`${duration}ms`}
+          use-duration={`${duration}ms`}
         />
         {d[value] && (
           <SValue

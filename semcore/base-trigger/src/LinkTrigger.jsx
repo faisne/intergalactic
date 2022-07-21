@@ -34,7 +34,7 @@ class RootLinkTrigger extends Component {
     const colorHover = shade(color, -0.12);
 
     return sstyled(styles)(
-      <SLinkTrigger render={Box} use:color={color} use:color-hover={colorHover}>
+      <SLinkTrigger render={Box} use-color={color} use-color-hover={colorHover}>
         {addonTextChildren(Children, LinkTrigger.Text, LinkTrigger.Addon)}
         <SLinkAddon>
           {loading ? <Spin size="xs" theme="currentColor" /> : <ChevronDown />}

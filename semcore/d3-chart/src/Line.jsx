@@ -63,7 +63,7 @@ class LineRoot extends Component {
           hide={hide}
           color={color}
           d={d3(data)}
-          use:duration={`${duration}ms`}
+          use-duration={`${duration}ms`}
         />
         {duration && (
           <ClipPath

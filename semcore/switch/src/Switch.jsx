@@ -136,8 +136,8 @@ class Value extends Component {
         keyboardFocused={keyboardFocused}
         neighborLocation={neighborLocation}
         checked={inputProps.checked}
-        use:theme={useTheme}
-        use:color={color}
+        use-theme={useTheme}
+        use-color={color}
         {...toggleProps}
       >
         <SInput

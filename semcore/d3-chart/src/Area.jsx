@@ -86,7 +86,7 @@ class AreaRoot extends Component {
             clipPath={`url(#${uid})`}
             d={d3Line(data)}
             color={color}
-            use:duration={`${duration}ms`}
+            use-duration={`${duration}ms`}
           />
         )}
         <SArea
@@ -96,7 +96,7 @@ class AreaRoot extends Component {
           d={d3(data)}
           hide={hide}
           color={color}
-          use:duration={`${duration}ms`}
+          use-duration={`${duration}ms`}
         />
         {duration && (
           <ClipPath
@@ -125,7 +125,7 @@ function Line(props) {
       clipPath={`url(#${uid})`}
       d={d3(data)}
       color={color}
-      use:duration={`${duration}ms`}
+      use-duration={`${duration}ms`}
     />,
   );
 }

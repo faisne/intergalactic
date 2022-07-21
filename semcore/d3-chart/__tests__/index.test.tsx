@@ -1,6 +1,7 @@
 import React from 'react';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { testing, shared as testsShared, snapshot } from '@semcore/jest-preset-ui';
+import { assert, expect, test, describe, afterEach } from 'vitest';
 const { render, fireEvent, cleanup } = testing;
 const { shouldSupportClassName, shouldSupportRef } = testsShared;
 import {

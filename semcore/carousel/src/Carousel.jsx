@@ -358,7 +358,7 @@ const Container = (props) => {
   const SContainer = Root;
   const { styles, duration } = props;
 
-  return sstyled(styles)(<SContainer render={Box} use:duration={`${duration}ms`} />);
+  return sstyled(styles)(<SContainer render={Box} use-duration={`${duration}ms`} />);
 };
 
 const Item = (props) => {
