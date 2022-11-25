@@ -94,7 +94,7 @@
   --google-green: #016723;
 
   --keyboard-focus: 0 0 0 3px color-mod(var(--blue-400) a(20%));
-  --keyborad-focus: var(--keyboard-focus);
+  --keyborad-focus: var(--intergalactic-boxShadow-keyboard-focus);
   --keyboard-focus-valid: 0px 0px 0px 3px color-mod(var(--green-400) a(20%));
   --keyboard-focus-invalid: 0px 0px 0px 3px color-mod(var(--red-400) a(20%));
 
