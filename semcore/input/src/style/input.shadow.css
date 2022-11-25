@@ -39,11 +39,11 @@ SValue {
   }
 
   &::placeholder {
-    color: var(--gray-300);
+    color: var(--intergalactic-color-text-placeholder);
   }
 
   &:read-only ~ SOutline {
-    background: var(--gray-50);
+    background: var(--intergalactic-color-bg-secondary-neutral);
   }
 
   &:disabled {
@@ -75,16 +75,16 @@ SAddon {
   justify-content: center;
   align-items: center;
   flex: 0 0 auto;
-  padding: 0 8px;
+  padding: 0 var(--intergalactic-spacing-spacing-2x);
   height: 100%;
-  color: var(--gray-300);
+  color: var(--intergalactic-color-icon-secondary-neutral);
 }
 
 SAddon[interactive] {
   cursor: pointer;
 
   &:hover {
-    color: var(--gray-400);
+    color: var(--intergalactic-color-icon-secondary-neutral-hover-active);
   }
 }
 
@@ -101,14 +101,14 @@ SInput[size='m'] {
 
 SValue[size='m'],
 SValue[size='l'] {
-  padding: 0 8px;
+  padding: 0 var(--intergalactic-spacing-spacing-2x);
 }
 
 SInput[size='l'] {
   font-size: var(--intergalactic-fontSizes-fs-300);
   height: var(--form-control-l);
-  padding-left: 4px;
-  padding-right: 4px;
+  padding-left: var(--intergalactic-spacing-spacing-1x);
+  padding-right: var(--intergalactic-spacing-spacing-1x);
 }
 
 SInput[focused] {
@@ -117,31 +117,31 @@ SInput[focused] {
 
 SInput[state='normal'] {
   & SOutline {
-    border-color: var(--intergalactic-color-border-primary);
+    border-color: var(--intergalactic-color-border-info);
   }
 
   & SValue:focus ~ SOutline {
-    border-color: var(--blue-400);
+    border-color: var(--intergalactic-color-border-info-active);
     box-shadow: var(--intergalactic-boxShadow-keyboard-focus);
   }
 }
 SInput[state='valid'] {
   & SOutline {
-    border-color: var(--green-200);
+    border-color: var(--intergalactic-color-border-success);
   }
 
   & SValue:focus ~ SOutline {
-    border-color: var(--green-400);
+    border-color: var(--intergalactic-color-border-success-active);
     box-shadow: var(--intergalactic-boxShadow-keyboard-focus-valid);
   }
 }
 SInput[state='invalid'] {
   & SOutline {
-    border-color: var(--red-200);
+    border-color: var(--intergalactic-color-border-danger);
   }
 
   & SValue:focus ~ SOutline {
-    border-color: var(--red-400);
+    border-color: var(--intergalactic-color-border-danger-active);
     box-shadow: var(--intergalactic-boxShadow-keyboard-focus-invalid);
   }
 }
