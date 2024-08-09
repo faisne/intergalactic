@@ -2,6 +2,24 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [4.43.0] - 2024-07-29
+
+### Changed
+
+- Close icon to `Button` component.
+
+## [4.42.1] - 2024-07-30
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/animation` [2.31.0 ~> 2.31.1], `@semcore/flex-box` [5.31.0 ~> 5.31.1], `@semcore/icon` [4.43.0 ~> 4.43.1], `@semcore/utils` [4.32.0 ~> 4.32.1], `@semcore/core` [2.29.0 ~> 2.29.1]).
+
+## [4.42.0] - 2024-07-17
+
+### Changed
+
+- Enabled `z-index` stacking.
+
 ## [4.41.0] - 2024-07-13
 
 ### Changed

@@ -1,3 +1,146 @@
+## [15.103.0] - 2024-08-05
+
+### @semcore/button
+
+- **Changed** Changed `loading` set spinner color setting. Instead of palette, hardcoded to `theme` and `use` props, color of text in button is used. Default color of this state visually preserved.
+
+### @semcore/dropdown
+
+- **Added** Role `dialog` to the popper.
+
+### @semcore/dropdown-menu
+
+- **Changed** Hidden scrollbars inside of listbox from screen readers to comply formal a11y requirements.
+
+### @semcore/feedback-form
+
+- **Fixed** View for close icon as a `Button` component.
+- **Fixed** React errors in console about `validationOnBlur` property.
+
+### @semcore/modal
+
+- **Changed** Close icon to `Button` component.
+
+### @semcore/popper
+
+- **Added** Runtime check of required label in `Popper` component with role `dialog`.
+
+### @semcore/scroll-area
+
+- **Add** Context to hide scrollbars from screen readers.
+
+### @semcore/select
+
+- **Fixed** Depending on css reset, a small visual gap might appear between `Select.InputSearch` right border and outer container.
+
+### @semcore/time-picker
+
+- **Changed** Fixed reading of dropdowns by Screen readers.
+- **Changed** Removed unnecessary `aria-hidden` props.
+- **Changed** Text in some `aria-label`.
+
+### @semcore/tooltip
+
+- **Changed** Runtime check of required label in `DescriptionTooltip` popper moved to `Popper` component.
+
+### @semcore/utils
+
+- **Fixed** In firefox focus lock with a single focusable element was allowing user focus to get our of the web page.
+
+## [15.102.1] - 2024-07-30
+
+### @semcore/button
+
+- **Fixed** Tokens for `Button` with `use="primary"` and `theme="warning"`: from `--intergalactic-icon-primary-warning` and `--intergalactic-icon-primary-warning-hover-active` to `--intergalactic-control-primary-brand`, `--intergalactic-control-primary-brand-hover` and `--intergalactic-control-primary-brand-active`.
+
+### @semcore/notice-bubble
+
+- **Fixed** Component `z-index`.
+
+### @semcore/utils
+
+- **Fixed** `z-index` stacking for class components.
+
+## [15.102.0] - 2024-07-26
+
+### @semcore/d3-chart
+
+- **Added** `minRadius` property to Venn.Chart.
+- **Added** `index` to children render function of `CompactHorizontalBar` subcomponents.
+- **Added** Gaps between bars in StackBar chart.
+
+### @semcore/divider
+
+- **Added** Support for design tokens in `theme` prop.
+
+### @semcore/modal
+
+- **Changed** Enabled `z-index` stacking.
+
+### @semcore/notice-bubble
+
+- **Changed** Enabled `z-index` stacking.
+
+### @semcore/popper
+
+- **Changed** Enabled `z-index` stacking.
+
+### @semcore/scroll-area
+
+- **Added** Property `observeParentSize` to enable recalculation if the parent of ScrollArea is resized. Default value is `false`.
+
+### @semcore/side-panel
+
+- **Changed** Enabled `z-index` stacking.
+
+### @semcore/tooltip
+
+- **Changed** Enabled `z-index` stacking.
+
+### @semcore/utils
+
+- **Added** Internal apis to control nested `z-index` stacking.
+
+## [15.101.0] - 2024-07-19
+
+### @semcore/d3-chart
+
+- **Added** `CompactHorizontalBar` chart.
+
+### @semcore/popper
+
+- **Fixed** Popper not opening a second time with interaction `focus`.
+
+### @semcore/scroll-area
+
+- **Fixed** Glitches if the parent of scrollArea has a decimal height or width value.
+
+### @semcore/skeleton
+
+- **Added** `CompactHorizontalBarChartSkeleton` component.
+
+### @semcore/slider
+
+- **Changed** `margin-top` for Slider options.
+
+## [15.100.0] - 2024-07-17
+
+### @semcore/data-table
+
+- **Fixed** View of ScrollArea shadows in table body.
+
+### @semcore/notice-bubble
+
+- **Fixed** Close button shape wasn't square.
+- **Fixed** Warning notices announcement was read twice by NDVA.
+- **Fixed** Warning notices wasn't announced as alert by Voice Over.
+- **Added** Close button tooltip.
+
+### @semcore/tooltip
+
+- **Added** `aria-controls` to `DescriptionTooltip.Trigger`.
+- **Added** `arrowBgColor` and `arrowShadowColor` properties for Tooltip.Popper.
+
 ## [15.99.0] - 2024-07-13
 
 ### @semcore/accordion

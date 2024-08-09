@@ -22,6 +22,7 @@ import {
   Line,
   Donut,
   HorizontalBar,
+  CompactHorizontalBar,
   GroupBar,
   minMax,
   Area,
@@ -683,6 +684,38 @@ describe('Venn', () => {
 
     await expect(await snapshot(<Component />)).toMatchImageSnapshot(task);
   });
+
+  test.concurrent('should render venn width defaults min radius for item', async ({ task }) => {
+    const data = {
+      G: 2000,
+      F: 2000,
+      C: 5000,
+      U: 2,
+      'G/F': 1000,
+      'G/C': 1000,
+      'F/C': 1000,
+      'G/F/C': 1000,
+    };
+
+    const Component: React.FC = () => {
+      return (
+        <Plot height={300} width={400} data={data}>
+          <Venn>
+            <Venn.Circle dataKey='G' name='Good' />
+            <Venn.Circle dataKey='F' name='Fast' color={colors['blue-03']} />
+            <Venn.Circle dataKey='C' name='Cheap' color={colors['orange-04']} />
+            <Venn.Circle dataKey='U' name='Unknown' color={colors['pink-03']} />
+            <Venn.Intersection dataKey='G/F' name='Good & Fast' />
+            <Venn.Intersection dataKey='G/C' name='Good & Cheap' />
+            <Venn.Intersection dataKey='F/C' name='Fast & Cheap' />
+            <Venn.Intersection dataKey='G/F/C' name='Good & Fast & Cheap' />
+          </Venn>
+        </Plot>
+      );
+    };
+
+    await expect(await snapshot(<Component />)).toMatchImageSnapshot(task);
+  });
 });
 
 describe('Bar', () => {
@@ -880,13 +913,13 @@ describe('Bar', () => {
   test.concurrent('should render StackBar chart correctly with custom hMin', async ({ task }) => {
     const yScale = scaleLinear()
       .range([height - MARGIN, MARGIN])
-      .domain([-10, 10]);
+      .domain([-4, 4]);
 
     const data = [
       { time: 0, stack1: 0.01, stack2: 4, stack3: 3 },
       { time: 1, stack1: 2, stack2: 0.01, stack3: 4 },
-      { time: 2, stack1: 1, stack2: 4, stack3: 0.01 },
-      { time: 3, stack1: -3, stack2: -2, stack3: -0.02 },
+      { time: 2, stack1: 1.5, stack2: 0.01, stack3: 1.3 },
+      { time: 3, stack1: -3, stack2: 0, stack3: -0.02 },
       { time: 4, stack1: 0, stack2: 0.03, stack3: 0.01 },
       { time: 5, stack1: -0.01, stack2: -0.02, stack3: -0.03 },
       { time: 6, stack1: 3, stack2: 1, stack3: 4 },
@@ -2632,6 +2665,85 @@ describe('d3 charts visual regression', () => {
           style={{ border: '1px solid' }}
         >
           <Line x='x' y='y' duration={0} />
+        </Plot>
+      );
+    };
+
+    await expect(await snapshot(<Component />)).toMatchImageSnapshot(task);
+  });
+
+  test.concurrent('should render Compact horizontal bar chart', async ({ task }) => {
+    const data = [
+      {
+        category: 'Schema.org (Microdata)',
+        value: 0,
+      },
+      {
+        category: 'Open graph',
+        value: 9650,
+      },
+      {
+        category: 'Twitter cards',
+        value: 7650,
+      },
+      {
+        category: 'Microformats',
+        value: 14650,
+      },
+      {
+        category: 'Schema.org (JSON-LD)',
+        value: 135650,
+      },
+    ];
+
+    const Component: React.FC = () => {
+      const MARGIN = 30;
+      const width = 500;
+      const height = 500;
+
+      const sum = data.reduce((acc, d) => acc + d.value, 0);
+
+      const xScale = scaleLinear().range([0, width]).domain([0, sum]);
+
+      const yScale = scaleBand()
+        .range([height - MARGIN, MARGIN])
+        .domain([...data].reverse().map((d) => d.category))
+        .paddingInner(0.6)
+        .paddingOuter(0.2);
+
+      return (
+        <Plot data={data} scale={[xScale, yScale]} width={width} height={height}>
+          <CompactHorizontalBar x='value' y='category'>
+            <CompactHorizontalBar.Hover />
+            <CompactHorizontalBar.Tooltip>
+              {({ index }: any) => {
+                return {
+                  children: (
+                    <>
+                      <CompactHorizontalBar.Tooltip.Title>
+                        {data[index].category}
+                      </CompactHorizontalBar.Tooltip.Title>
+                      <Flex justifyContent='space-between'>
+                        <CompactHorizontalBar.Tooltip.Dot mr={4}>
+                          Bar
+                        </CompactHorizontalBar.Tooltip.Dot>
+                        <Text bold>{data[index].value}</Text>
+                      </Flex>
+                    </>
+                  ),
+                };
+              }}
+            </CompactHorizontalBar.Tooltip>
+            <CompactHorizontalBar.Annotation>
+              <CompactHorizontalBar.Label />
+              <CompactHorizontalBar.Percent />
+              <CompactHorizontalBar.Value />
+            </CompactHorizontalBar.Annotation>
+            <CompactHorizontalBar.Bar>
+              <CompactHorizontalBar.Bar.Background />
+              <CompactHorizontalBar.Bar.Fill />
+            </CompactHorizontalBar.Bar>
+          </CompactHorizontalBar>
         </Plot>
       );
     };

@@ -24,10 +24,15 @@ import keyboardFocusEnhance, {
   useFocusSource,
 } from '@semcore/utils/lib/enhances/keyboardFocusEnhance';
 import { hasParent } from '@semcore/utils/lib/hasParent';
+import logger from '@semcore/utils/lib/logger';
 
 import createPopper from './createPopper';
 
 import style from './style/popper.shadow.css';
+import {
+  useZIndexStacking,
+  ZIndexStackingContextProvider,
+} from '@semcore/utils/lib/zIndexStacking';
 
 function isObject(obj) {
   return typeof obj === 'object' && !Array.isArray(obj);
@@ -430,16 +435,26 @@ class Popper extends Component {
       onKeyDown: this.bindHandlerKeyDown(onKeyDown, 'trigger'),
       disableEnforceFocus,
       popperRef: this.popperRef,
-      onBlur: callAllEventHandlers(this.handleTriggerBlur, interactionProps.onBlur),
+      /** order of handlers is important here! */
+      onBlur: callAllEventHandlers(interactionProps.onBlur, this.handleTriggerBlur),
     };
   }
 
   handleTriggerBlur = () => {
-    setTimeout(() => {
-      if (!this.asProps.visible) {
-        this.setState({ ignoreTriggerFocusUntil: 0 });
-      }
-    }, 0);
+    const { timeout } = this.asProps;
+    const timeoutConfig = typeof timeout === 'number' ? [timeout, timeout] : timeout;
+    const delay = timeoutConfig[1];
+
+    clearTimeout(this.triggerBlurTimeout);
+    /** Need to call timeout with delay as for hiding */
+    this.triggerBlurTimeout = setTimeout(() => {
+      /** Need to check visible prop in next frame because this.asProps updates only after rerender */
+      requestAnimationFrame(() => {
+        if (!this.asProps.visible) {
+          this.setState({ ignoreTriggerFocusUntil: 0 });
+        }
+      });
+    }, delay);
   };
 
   getPopperProps() {
@@ -596,8 +611,10 @@ function PopperPopper(props) {
     popper,
     focusMaster = false,
     handleFocusOut,
+    role,
   } = props;
   const ref = React.useRef(null);
+  const zIndex = useZIndexStacking('z-index-popper');
 
   // https://github.com/facebook/react/issues/11387
   const stopPropagation = React.useCallback((event) => {
@@ -644,6 +661,24 @@ function PopperPopper(props) {
     };
   }, [animationCtx, ignorePortalsStacking]);
 
+  React.useEffect(() => {
+    if (role === 'dialog' && visible && process.env.NODE_ENV !== 'production') {
+      const hasTitle = (node) => {
+        if (node.hasAttribute('aria-label')) return true;
+        if (node.hasAttribute('aria-labelledby')) return true;
+        if (node.hasAttribute('title')) return true;
+
+        return false;
+      };
+
+      logger.warn(
+        ref.current && !hasTitle(ref.current),
+        `'title' or 'aria-label' or 'aria-labelledby' are required props for popper with role dialog`,
+        props['data-ui-name'] || PopperPopper.displayName,
+      );
+    }
+  }, [visible, role]);
+
   return sstyled(styles)(
     <Portal
       disablePortal={disablePortal}
@@ -651,43 +686,46 @@ function PopperPopper(props) {
       onMount={setPortalMounted}
     >
       <NeighborLocation controlsLength={controlsLength}>
-        <SPopper
-          render={Scale}
-          animationsDisabled={animationsDisabled}
-          visible={visible}
-          duration={[duration, duration / 2]}
-          ref={ref}
-          onClick={stopPropagation}
-          onContextMenu={stopPropagation}
-          onDoubleClick={stopPropagation}
-          onDrag={stopPropagation}
-          onDragEnd={stopPropagation}
-          onDragEnter={stopPropagation}
-          onDragExit={stopPropagation}
-          onDragLeave={stopPropagation}
-          onDragOver={stopPropagation}
-          onDragStart={stopPropagation}
-          onDrop={stopPropagation}
-          onMouseDown={stopPropagation}
-          onMouseMove={stopPropagation}
-          onMouseOver={stopPropagation}
-          onMouseOut={stopPropagation}
-          onMouseUp={stopPropagation}
-          onKeyDown={propagateFocusLockSyntheticEvent}
-          onKeyPress={stopPropagation}
-          onKeyUp={stopPropagation}
-          onFocus={stopPropagation}
-          onBlur={propagateFocusLockSyntheticEvent}
-          onChange={stopPropagation}
-          onInput={stopPropagation}
-          onInvalid={stopPropagation}
-          onReset={stopPropagation}
-          onSubmit={stopPropagation}
-        >
-          <PortalProvider value={ref}>
-            <Children />
-          </PortalProvider>
-        </SPopper>
+        <ZIndexStackingContextProvider designToken='z-index-popper'>
+          <SPopper
+            render={Scale}
+            animationsDisabled={animationsDisabled}
+            visible={visible}
+            duration={[duration, duration / 2]}
+            ref={ref}
+            onClick={stopPropagation}
+            onContextMenu={stopPropagation}
+            onDoubleClick={stopPropagation}
+            onDrag={stopPropagation}
+            onDragEnd={stopPropagation}
+            onDragEnter={stopPropagation}
+            onDragExit={stopPropagation}
+            onDragLeave={stopPropagation}
+            onDragOver={stopPropagation}
+            onDragStart={stopPropagation}
+            onDrop={stopPropagation}
+            onMouseDown={stopPropagation}
+            onMouseMove={stopPropagation}
+            onMouseOver={stopPropagation}
+            onMouseOut={stopPropagation}
+            onMouseUp={stopPropagation}
+            onKeyDown={propagateFocusLockSyntheticEvent}
+            onKeyPress={stopPropagation}
+            onKeyUp={stopPropagation}
+            onFocus={stopPropagation}
+            onBlur={propagateFocusLockSyntheticEvent}
+            onChange={stopPropagation}
+            onInput={stopPropagation}
+            onInvalid={stopPropagation}
+            onReset={stopPropagation}
+            onSubmit={stopPropagation}
+            zIndex={zIndex}
+          >
+            <PortalProvider value={ref}>
+              <Children />
+            </PortalProvider>
+          </SPopper>
+        </ZIndexStackingContextProvider>
       </NeighborLocation>
     </Portal>,
   );

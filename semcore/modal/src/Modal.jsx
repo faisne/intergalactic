@@ -2,7 +2,7 @@ import React from 'react';
 import { FadeInOut, Slide } from '@semcore/animation';
 import createComponent, { Component, sstyled, Root } from '@semcore/core';
 import Portal, { PortalProvider } from '@semcore/portal';
-import { Box } from '@semcore/flex-box';
+import Button from '@semcore/button';
 import OutsideClick from '@semcore/outside-click';
 import CloseIcon from '@semcore/icon/Close/l';
 import fire from '@semcore/utils/lib/fire';
@@ -18,6 +18,10 @@ import { cssVariableEnhance } from '@semcore/utils/lib/useCssVariable';
 import { useFocusLock } from '@semcore/utils/lib/use/useFocusLock';
 import { useContextTheme } from '@semcore/utils/lib/ThemeProvider';
 import { useColorResolver } from '@semcore/utils/lib/use/useColorResolver';
+import {
+  ZIndexStackingContextProvider,
+  useZIndexStacking,
+} from '@semcore/utils/lib/zIndexStacking';
 
 class ModalRoot extends Component {
   static displayName = 'Modal';
@@ -139,10 +143,12 @@ function Window(props) {
       duration={duration}
       ref={windowRef}
     >
-      <PortalProvider value={windowRef}>
-        {closable && <Modal.Close />}
-        <Children />
-      </PortalProvider>
+      <ZIndexStackingContextProvider designToken='z-index-modal'>
+        <PortalProvider value={windowRef}>
+          {closable && <Modal.Close />}
+          <Children />
+        </PortalProvider>
+      </ZIndexStackingContextProvider>
     </SWindow>,
   );
 }
@@ -153,9 +159,10 @@ function Overlay(props) {
   const overlayRef = React.useRef(null);
   usePreventScroll(visible, props.disablePreventScroll);
   useContextTheme(overlayRef, visible);
+  const zIndex = useZIndexStacking('z-index-modal');
 
   return sstyled(styles)(
-    <SOverlay render={FadeInOut} ref={overlayRef}>
+    <SOverlay render={FadeInOut} ref={overlayRef} zIndex={zIndex}>
       <OutsideClick root={overlayRef} onOutsideClick={onOutsideClick}>
         <Children />
       </OutsideClick>
@@ -165,10 +172,22 @@ function Overlay(props) {
 
 function Close(props) {
   const SClose = Root;
-  const { Children, children: hasChildren, getI18nText } = props;
+  const { Children, children: hasChildren, getI18nText, ghost } = props;
   return sstyled(props.styles)(
-    <SClose render={Box} tag='button' tabIndex={0} aria-label={getI18nText('close')}>
-      {hasChildren ? <Children /> : <CloseIcon title={getI18nText('close')} />}
+    <SClose
+      render={Button}
+      use='tertiary'
+      size='l'
+      theme={ghost ? 'invert' : 'muted'}
+      aria-label={getI18nText('close')}
+    >
+      {hasChildren ? (
+        <Children />
+      ) : (
+        <Button.Addon ml={'7px'} mr={'7px'}>
+          <CloseIcon title={getI18nText('close')} />
+        </Button.Addon>
+      )}
     </SClose>,
   );
 }

@@ -2,6 +2,30 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [3.41.0] - 2024-07-29
+
+### Changed
+
+- Color and margins for the Close button.
+
+## [3.40.2] - 2024-08-05
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/utils` [4.32.1 ~> 4.32.2], `@semcore/animation` [2.31.1 ~> 2.31.2], `@semcore/flex-box` [5.31.1 ~> 5.31.2], `@semcore/portal` [3.31.1 ~> 3.31.2], `@semcore/outside-click` [3.29.1 ~> 3.29.2], `@semcore/icon` [4.43.1 ~> 4.43.2], `@semcore/core` [2.29.1 ~> 2.29.2]).
+
+## [3.40.1] - 2024-07-30
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/utils` [4.32.0 ~> 4.32.1], `@semcore/animation` [2.31.0 ~> 2.31.1], `@semcore/flex-box` [5.31.0 ~> 5.31.1], `@semcore/portal` [3.31.0 ~> 3.31.1], `@semcore/outside-click` [3.29.0 ~> 3.29.1], `@semcore/icon` [4.43.0 ~> 4.43.1], `@semcore/core` [2.29.0 ~> 2.29.1]).
+
+## [3.40.0] - 2024-07-17
+
+### Changed
+
+- Enabled `z-index` stacking.
+
 ## [3.39.0] - 2024-07-02
 
 ### Changed

@@ -20,6 +20,12 @@ export type ScrollAreaProps = BoxProps & {
   /** Tab index that is being bypassed to the scroll container. */
   tabIndex?: number | null;
 
+  /**
+   * Flag to enable resizing if the parent of ScrollArea is resized
+   * @default false
+   */
+  observeParentSize?: boolean;
+
   topOffset?: number;
   rightOffset?: number;
   bottomOffset?: number;
@@ -66,5 +72,7 @@ declare const ScrollArea: Intergalactic.Component<'div', ScrollAreaProps, Scroll
 
 declare const eventCalculate: any;
 
-export { eventCalculate };
+declare const hideScrollBarsFromScreenReadersContext: React.Context<boolean>;
+
+export { eventCalculate, hideScrollBarsFromScreenReadersContext };
 export default ScrollArea;

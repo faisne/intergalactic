@@ -9,6 +9,10 @@ import uniqueIDEnhancement from '@semcore/utils/lib/uniqueID';
 import Portal from '@semcore/portal';
 
 import style from './style/tooltip.shadow.css';
+import {
+  useZIndexStacking,
+  ZIndexStackingContextProvider,
+} from '@semcore/utils/lib/zIndexStacking';
 
 const Popper = PopperOrigin[CREATE_COMPONENT]();
 
@@ -135,7 +139,6 @@ function TooltipPopper(props) {
     disablePortal,
     ignorePortalsStacking,
     'aria-live': ariaLive,
-    zIndex,
     role,
     arrowBgColor,
     arrowShadowColor,
@@ -144,46 +147,30 @@ function TooltipPopper(props) {
   const SArrow = Box;
   const STooltipPortalledWrapper = Box;
 
-  const popperRef = React.useRef(null);
-
-  React.useEffect(() => {
-    if (role === 'dialog' && visible && process.env.NODE_ENV !== 'production') {
-      const hasTitle = (node) => {
-        if (node.hasAttribute('aria-label')) return true;
-        if (node.hasAttribute('aria-labelledby')) return true;
-        if (node.hasAttribute('title')) return true;
-
-        return false;
-      };
-
-      logger.warn(
-        popperRef.current && !hasTitle(popperRef.current),
-        `'title' or 'aria-label' or 'aria-labelledby' are required props`,
-        props['data-ui-name'] || DescriptionTooltipRoot.Popper.displayName,
-      );
-    }
-  }, [visible, role]);
+  const contextZIndex = useZIndexStacking('z-index-tooltip');
+  const zIndex = props.zIndex || contextZIndex;
 
   return sstyled(styles)(
-    <Portal disablePortal={disablePortal} ignorePortalsStacking={ignorePortalsStacking}>
-      <STooltipPortalledWrapper aria-live={ariaLive} zIndex={zIndex}>
-        <STooltip
-          render={Popper.Popper}
-          use:disablePortal
-          use:theme={resolveColor(theme)}
-          use:aria-live={undefined}
-          ref={popperRef}
-        >
-          <Children />
-          <SArrow
-            data-popper-arrow
+    <ZIndexStackingContextProvider designToken='z-index-tooltip'>
+      <Portal disablePortal={disablePortal} ignorePortalsStacking={ignorePortalsStacking}>
+        <STooltipPortalledWrapper aria-live={ariaLive} zIndex={zIndex}>
+          <STooltip
+            render={Popper.Popper}
+            use:disablePortal
             use:theme={resolveColor(theme)}
-            bgColor={resolveColor(arrowBgColor)}
-            shadowColor={resolveColor(arrowShadowColor ?? arrowBgColor)}
-          />
-        </STooltip>
-      </STooltipPortalledWrapper>
-    </Portal>,
+            use:aria-live={undefined}
+          >
+            <Children />
+            <SArrow
+              data-popper-arrow
+              use:theme={resolveColor(theme)}
+              bgColor={resolveColor(arrowBgColor)}
+              shadowColor={resolveColor(arrowShadowColor ?? arrowBgColor)}
+            />
+          </STooltip>
+        </STooltipPortalledWrapper>
+      </Portal>
+    </ZIndexStackingContextProvider>,
   );
 }
 

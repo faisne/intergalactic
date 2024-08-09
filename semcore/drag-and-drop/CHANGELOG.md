@@ -2,6 +2,30 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [3.41.2] - 2024-08-05
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/card` [5.40.1 ~> 5.40.2], `@semcore/utils` [4.32.1 ~> 4.32.2], `@semcore/core` [2.29.1 ~> 2.29.2]).
+
+## [3.41.1] - 2024-07-30
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/card` [5.40.0 ~> 5.40.1], `@semcore/utils` [4.32.0 ~> 4.32.1], `@semcore/core` [2.29.0 ~> 2.29.1]).
+
+## [3.41.0] - 2024-07-26
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/card` [5.39.0 ~> 5.40.0], `@semcore/utils` [4.31.0 ~> 4.32.0], `@semcore/core` [2.28.0 ~> 2.29.0]).
+
+## [3.40.0] - 2024-07-17
+
+### Changed
+
+- Version minor update due to children dependencies update (`@semcore/card` [5.38.0 ~> 5.39.0]).
+
 ## [3.39.0] - 2024-07-13
 
 ### Changed

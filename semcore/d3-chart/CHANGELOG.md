@@ -2,6 +2,32 @@
 
 CHANGELOG.md standards are inspired by [keepachangelog.com](https://keepachangelog.com/en/1.0.0/).
 
+## [3.51.2] - 2024-08-05
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/animation` [2.31.1 ~> 2.31.2], `@semcore/popper` [5.39.1 ~> 5.39.2], `@semcore/utils` [4.32.1 ~> 4.32.2], `@semcore/core` [2.29.1 ~> 2.29.2]).
+
+## [3.51.1] - 2024-07-30
+
+### Changed
+
+- Version patch update due to children dependencies update (`@semcore/animation` [2.31.0 ~> 2.31.1], `@semcore/utils` [4.32.0 ~> 4.32.1], `@semcore/core` [2.29.0 ~> 2.29.1]).
+
+## [3.51.0] - 2024-07-22
+
+### Added
+
+- `minRadius` property to Venn.Chart.
+- `index` to children render function of `CompactHorizontalBar` subcomponents.
+- Gaps between bars in StackBar chart.
+
+## [3.50.0] - 2024-06-28
+
+### Added
+
+- `CompactHorizontalBar` chart.
+
 ## [3.49.0] - 2024-07-13
 
 ### Changed
